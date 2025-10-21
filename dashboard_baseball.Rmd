@@ -22,7 +22,7 @@ library(flexdashboard)
 ```{r}
 
 
-summary(iris)
+summary(cars)
 ```
 
 # Onglet2
