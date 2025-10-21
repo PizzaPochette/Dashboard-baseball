@@ -11,11 +11,12 @@ date: "2025-10-22"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
+stats <- read.csv("data/stats_joueurs.csv")
 library(DT)
 library(flexdashboard)
 ```
 
-# Aperçu
+# onglet1
 
 ## Résumé général
 
@@ -30,7 +31,7 @@ summary(cars)
 ## titre
 
 ```{r}
-datatable(iris, filter = "top", options = list(pageLength = 5))
+
 
 ```
 
