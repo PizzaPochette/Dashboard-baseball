@@ -1,9 +1,9 @@
 ---
 title: "Dashboard-baseball"
-output:   flexdashboard::flex_dashboard
-
-   
+output: flexdashboard::flex_dashboard
+runtime: shiny
 date: "2025-10-22"
+
 ---
 
 
@@ -11,9 +11,11 @@ date: "2025-10-22"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-stats <- read.csv("data/stats_joueurs.csv")
-library(DT)
 library(flexdashboard)
+library(shiny)
+library(DT)
+
+stats <- read.csv("data/stats_joueurs.csv", header=TRUE)
 ```
 
 # onglet1
@@ -30,7 +32,15 @@ summary(cars)
 
 ## titre
 
-```{r}
+```{r, echo=FALSE}
+selectInput("Joueur", "Selectionne un joueur:", choices= sort(unique(stats$last_name..first_name)))
+
+
+renderTable({subset(
+    stats,
+    last_name..first_name == input$Joueur
+  )})
+
 
 
 ```
