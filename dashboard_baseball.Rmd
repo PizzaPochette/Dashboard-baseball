@@ -1,0 +1,37 @@
+---
+title: "Dashboard-baseball"
+output:   flexdashboard::flex_dashboard
+
+   
+date: "2025-10-22"
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(DT)
+library(flexdashboard)
+```
+
+# Aperçu
+
+## Résumé général
+
+```{r}
+
+
+summary(iris)
+```
+
+# Onglet2
+
+## titre
+
+```{r}
+datatable(iris, filter = "top", options = list(pageLength = 5))
+
+```
+
+# Onglet3
