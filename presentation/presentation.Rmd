@@ -94,7 +94,7 @@ stats <- stats %>%
 
 class: center, middle
 
-## Un énoncé de l'objectif général / de la question de recherche
+## objectif général 
 
 Ce projet vise à concevoir un tableau de bord interactif permettant d’explorer les statistiques avancées des joueurs de la MLB.  
 L’objectif est de faciliter l’analyse des performances individuelles à travers des visualisations claires, des filtres dynamiques et des mises en évidence des meilleures et des moins bonnes performances.
@@ -134,9 +134,25 @@ class: inverse, center, middle
 
 ---
 
-# Onglet 2 : Analyse détaillée
+# Onglet 3 : Vue générale
 
-![Onglet 2](chemin/vers/onglet2.png)
+![Onglet 3](img/image1_onglet2.png)
+
+---
+
+# Onglet 3 : Vue générale
+
+![Onglet 3](img/image2_onglet2.png)
+
+---
+
+# Onglet 3 : Vue générale
+
+![Onglet 3](img/image3_onglet2.png)
+---
+
+# Onglet 3 : Vue générale
+
 
 **Points clés :**
 - Point 1 à retenir
