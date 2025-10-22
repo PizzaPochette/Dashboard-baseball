@@ -11,8 +11,55 @@ knitr::opts_chunk$set(echo = TRUE)
 library(flexdashboard)
 library(shiny)
 library(DT)
-
+library(dplyr)
 stats <- read.csv("data/stats_joueurs.csv", header=TRUE)
+stats <- stats %>%
+  select(
+    last_name..first_name,
+    pa,
+    k_percent,
+    bb_percent,
+    on_base_plus_slg,
+    b_gnd_into_dp,
+    b_hit_ground,
+    b_hit_fly,
+    b_out_fly,
+    b_out_ground,
+    b_out_line_drive,
+    b_out_popup,
+    b_swinging_strike,
+    fast_swing_rate,
+    sweet_spot_percent,
+    barrel_batted_rate,
+    hard_hit_percent,
+    avg_best_speed,
+    avg_hyper_speed,
+    whiff_percent,
+    swing_percent
+  ) %>%
+  rename(
+    nom_joueur = last_name..first_name,
+    presences_au_baton = pa,
+    pourcent_retraits_baton = k_percent,
+    pourcent_buts_sur_balles = bb_percent,
+    OPS = on_base_plus_slg,
+    double_jeu = b_gnd_into_dp,
+    coups_sur_sol = b_hit_ground,
+    coups_en_fleche = b_hit_fly,
+    retraits_en_fleche = b_out_fly,
+    retraits_au_sol = b_out_ground,
+    retraits_ligne = b_out_line_drive,
+    retraits_popup = b_out_popup,
+    retraits_elan_manque = b_swinging_strike,
+    taux_swings_rapides = fast_swing_rate,
+    pourcent_sweet_spot = sweet_spot_percent,
+    taux_frappe_puissante = barrel_batted_rate,
+    pourcent_frappe_forte = hard_hit_percent,
+    vitesse_moy_frappe = avg_best_speed,
+    vitesse_moy_frappe_puissante = avg_hyper_speed,
+    pourcent_elans_manques = whiff_percent,
+    pourcent_elans_total = swing_percent
+  )
 ```
 
 # onglet1
@@ -20,9 +67,28 @@ stats <- read.csv("data/stats_joueurs.csv", header=TRUE)
 ## Résumé général
 
 ```{r}
+install.packages("DT")
+library(DT)
 
 
-summary(cars)
+datatable(
+stats,
+extensions = 'Buttons',
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+pageLength = 15,
+scrollX = TRUE,
+autoWidth = TRUE,
+searchHighlight = TRUE
+),
+filter = "top",
+rownames = FALSE,
+caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
+)
+
+
+
 ```
 
 # Onglet2 
