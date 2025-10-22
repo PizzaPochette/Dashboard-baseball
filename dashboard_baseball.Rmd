@@ -69,8 +69,6 @@ stats <- stats %>%
 
 # onglet1
 
-## Résumé général
-
 
 ```{r, echo=FALSE, results='asis'}
 library(htmltools)
@@ -130,27 +128,31 @@ datatable(
 
 
 
-# Onglet2
+# Comparaison joueurs
 
 
 
 ```{r, echo=FALSE}
-selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats$nom_joueur)), multiple=TRUE)
 
-library(readr)
+recherche<- fluidPage(
+  selectizeInput("Joueur", "Sélectionne un ou plusieurs joueurs:", choices = unique(stats$nom_joueur), multiple=TRUE),
+  dataTableOutput("table"),   
+  plotlyOutput("graph")       
+)
 
-renderDataTable({
+dehors <- function(input, output) {
+output$table <- renderDataTable({
   datatable(
   subset(stats, nom_joueur %in% input$Joueur),
   filter ="top",
   options = list(scrollX=TRUE, autoWidth = TRUE, dom='Brtip', buttons = c('colvis'), 
-    columnDefs = list(list(visible = TRUE, targets = 0:6),list(visible = FALSE, targets = 7:22)) ),
+    columnDefs = list(list(visible = TRUE, targets = 0:6),list(visible = FALSE, targets = 7:20)) ),
   extensions = "Buttons"
   
   )})
 
 
-renderPlotly({
+output$graph <- renderPlotly({
   stats_graph <- subset(stats, nom_joueur %in% input$Joueur)
   
   ggplotly(
@@ -170,30 +172,22 @@ renderPlotly({
   )
   
 })
+}
 
-
-
+shinyApp(recherche, dehors)
 
 
 ```
 
-<<<<<<< HEAD
-# Équipe
+
+
+
+
+
+# Statistiques par équipe
 =======
 
-#Onglet 3
 
-<<<<<<< HEAD
-## Statistiques par équipe
-=======
-##test
->>>>>>> 306d4a5c5baa37f95cbc3e8d8e7d1884dd68f9c6
-
-
-```{r}
-
-#Ajout de l'équipe pour certains joueurs
->>>>>>> 00c43042fa958c9d8efd4c551286cfca91104b69
 
 ```{r, echo=FALSE}
 
@@ -256,9 +250,9 @@ stats_equipes <- stats_1 %>%
 
 ```
 
-# Onglet 3
 
-## Statistiques par équipe
+
+# Statistiques par équipe
 
 ### Choix de statistique
 ```{r, echo=FALSE}
@@ -293,6 +287,5 @@ renderPlot({
 })
 
 ```
-
 
 
