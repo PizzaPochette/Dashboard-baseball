@@ -66,27 +66,30 @@ stats <- stats %>%
 
 ## Résumé général
 
-```{r dashboard_MLB, echo=FALSE}
 
-
+```{r, echo=FALSE, results='asis'}
 datatable(
-stats,
-extensions = 'Buttons',
-options = list(
-dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
-pageLength = 15,
-scrollX = TRUE,
-autoWidth = TRUE,
-searchHighlight = TRUE
-),
-filter = "top",
-rownames = FALSE,
-caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
+  stats,
+  extensions = 'Buttons',
+  options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel'),
+    pageLength = 15,
+    lengthMenu = c(10, 15, 25, 50, 100),
+    scrollX = TRUE,
+    scrollY = '500px',  # Hauteur fixe pour le tableau
+    autoWidth = TRUE,
+    searchHighlight = TRUE
+  ),
+  filter = "top",
+  rownames = FALSE,
+  caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
 )
 
 
 ```
+
+
 
 # Onglet2
 
