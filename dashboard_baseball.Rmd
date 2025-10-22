@@ -129,12 +129,10 @@ datatable(
 
 
 
+
 # Onglet2
 
 
->>>>>>> c2b25a412ac0d1b6a8d396ea037b89b655d0f2ff
-
-## titre
 
 ```{r, echo=FALSE}
 selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats$nom_joueur)), multiple=TRUE)
@@ -142,7 +140,7 @@ selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats
 
 renderDataTable({
   datatable(
-  subset(stats, last_name..first_name %in% input$Joueur),
+  subset(stats, nom_joueur %in% input$Joueur),
   filter ="top",
   options = list(scrollX=TRUE, autoWidth = TRUE, dom='Brtip', buttons = c('colvis'), 
     columnDefs = list(list(visible = TRUE, targets = 0:6),list(visible = FALSE, targets = 7:22)) ),
@@ -152,13 +150,13 @@ renderDataTable({
 
 
 renderPlotly({
-  stats_graph <- subset(stats, last_name..first_name %in% input$Joueur)
+  stats_graph <- subset(stats, nom_joueur %in% input$Joueur)
   
   ggplotly(
     ggplot(stats_graph, aes(
-      x= fast_swing_rate,
-      y= hard_hit_percent,
-      color= last_name..first_name)
+      x= retraits_au_sol,
+      y= retraits_ligne,
+      color= nom_joueur)
             )
     +
     
@@ -178,10 +176,23 @@ renderPlotly({
 
 ```
 
+<<<<<<< HEAD
+# Équipe
+=======
 
 #Onglet 3
 
+<<<<<<< HEAD
 ## Statistiques par équipe
+=======
+##test
+>>>>>>> 306d4a5c5baa37f95cbc3e8d8e7d1884dd68f9c6
+
+
+```{r}
+
+#Ajout de l'équipe pour certains joueurs
+>>>>>>> 00c43042fa958c9d8efd4c551286cfca91104b69
 
 ```{r, echo=FALSE}
 
