@@ -1,6 +1,5 @@
 ---
 title: "Le baseball pour les nuls"
-subtitle: "Sous-titre"
 author: "Olivier Caron, Frédéric Ouellet et Léo Lefebvre"
 institute: "Université Laval"
 date: "`r Sys.Date()`"
@@ -96,14 +95,12 @@ class: center, middle
 
 ## objectif général 
 
-Ce projet vise à concevoir un tableau de bord interactif permettant d’explorer les statistiques avancées des joueurs de la MLB.  
-L’objectif est de faciliter l’analyse des performances individuelles à travers des visualisations claires, des filtres dynamiques et des mises en évidence des meilleures et des moins bonnes performances.
+-tableau de bord interactif  
+-statistiques avancées des joueurs de la MLB.  
+-faciliter l’analyse des performances 
 
-Le tableau de bord est divisé en trois onglets, chacun développé par un membre de l’équipe, afin de couvrir différents aspects du jeu et des données disponibles.
+divisé en trois onglets
 
----
-
-class: inverse, center, middle
 
 ---
 
@@ -122,55 +119,44 @@ class: inverse, center, middle
 # Onglet 1 : Vue générale
 
 ![Onglet 1](img/image3_onglet1.png)
----
-
-# Onglet 1 : Vue générale
-
-
-**Points clés :**
-- Point 1 à retenir
-- Point 2 à retenir
-- Point 3 à retenir
 
 ---
 
-# Onglet 3 : Vue générale
+# Onglet 2 : comparaison des joueurs
+
+![Onglet 1](img/onglet2joueur.png)
+
+---
+
+# Onglet 2 : comparaison des joueurs
+
+![Onglet 1](img/onglet2axes.png)
+
+---
+
+# Onglet 2 : comparaison des joueurs
+
+![Onglet 1](img/onglet2graph.png)
+---
+
+
+# Onglet 3 : Équipe
 
 ![Onglet 3](img/image1_onglet2.png)
 
 ---
 
-# Onglet 3 : Vue générale
+# Onglet 3 : Équipe
 
 ![Onglet 3](img/image2_onglet2.png)
 
 ---
 
-# Onglet 3 : Vue générale
+# Onglet 3 : Équipe
 
 ![Onglet 3](img/image3_onglet2.png)
 ---
 
-# Onglet 3 : Vue générale
-
-
-**Points clés :**
-- Point 1 à retenir
-- Point 2 à retenir
-- Point 3 à retenir
-
----
-
-# Onglet 3 : Résultats finaux
-
-![Onglet 3](chemin/vers/onglet3.png)
-
-**Points clés :**
-- Point 1 à retenir
-- Point 2 à retenir
-- Point 3 à retenir
-
----
 
 # Conclusion
 
