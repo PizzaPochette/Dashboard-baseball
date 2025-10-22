@@ -136,6 +136,7 @@ datatable(
 ```{r, echo=FALSE}
 selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats$nom_joueur)), multiple=TRUE)
 
+library(readr)
 
 renderDataTable({
   datatable(
