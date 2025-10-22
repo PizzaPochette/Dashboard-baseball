@@ -70,6 +70,17 @@ stats <- stats %>%
 
 
 ```{r, echo=FALSE, results='asis'}
+library(htmltools)
+
+
+# Légende
+tags$div(
+  style = "margin-bottom: 10px;",
+  tags$span("⬤ ", style = "color:#2ECC71;"), "Top 10% (meilleures performances) ",
+  tags$span("⬤ ", style = "color:#E74C3C; margin-left: 20px;"), "Bottom 10% (pires performances)"
+)
+
+# Tableau
 datatable(
   stats,
   extensions = 'Buttons',
@@ -79,19 +90,40 @@ datatable(
     pageLength = 15,
     lengthMenu = c(10, 15, 25, 50, 100),
     scrollX = TRUE,
-    scrollY = '500px',  # Hauteur fixe pour le tableau
+    scrollY = '500px',
     autoWidth = TRUE,
     searchHighlight = TRUE
   ),
   filter = "top",
   rownames = FALSE,
   caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
-)
-
+) %>%
+  formatStyle('OPS',
+    backgroundColor = styleInterval(c(0.54, 0.83), c('#E74C3C', '', '#2ECC71'))
+  ) %>%
+  formatStyle('pourcent_frappe_forte',
+    backgroundColor = styleInterval(c(29.36, 49.84), c('#E74C3C', '', '#2ECC71'))
+  ) %>%
+  formatStyle('taux_frappe_puissante',
+    backgroundColor = styleInterval(c(2.40, 14.00), c('#E74C3C', '', '#2ECC71'))
+  ) %>%
+  formatStyle('pourcent_sweet_spot',
+    backgroundColor = styleInterval(c(26.86, 39.00), c('#E74C3C', '', '#2ECC71'))
+  ) %>%
+  formatStyle('vitesse_moy_frappe',
+    backgroundColor = styleInterval(c(96.77, 102.95), c('#E74C3C', '', '#2ECC71'))
+  ) %>%
+  formatStyle('vitesse_moy_frappe_puissante',
+    backgroundColor = styleInterval(c(92.43, 96.03), c('#E74C3C', '', '#2ECC71'))
+  ) %>%
+  formatStyle('pourcent_elans_manques',
+    backgroundColor = styleInterval(c(17.90, 34.48), c('#2ECC71', '', '#E74C3C'))
+  )
 
 ```
 
-<<<<<<< HEAD
+
+
 
 
 # Onglet2
