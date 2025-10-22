@@ -1,7 +1,7 @@
 ---
-title: "Titre de la présentation"
+title: "Le baseball pour les nuls"
 subtitle: "Sous-titre"
-author: "Nom des membres de l'équipe"
+author: "Olivier Caron, Frédéric Ouellet et Léo Lefebvre"
 institute: "Université Laval"
 date: "`r Sys.Date()`"
 output:
@@ -21,6 +21,12 @@ library(tidyverse)
 library(palmerpenguins)
 library(knitr)
 library(xaringanthemer)
+library(flexdashboard)
+library(shiny)
+library(DT)
+library(dplyr)
+library(ggplot2)
+library(plotly)
 ```
 
 ```{r setup, include=FALSE}
@@ -33,6 +39,55 @@ style_xaringan(
 
 ```{r load-data, include=FALSE}
 # Charger vos données ici
+
+stats <- read_csv("../data/stats_joueurs.csv")
+stats <- stats %>%
+  select(
+    'last_name, first_name',
+    pa,
+    k_percent,
+    bb_percent,
+    on_base_plus_slg,
+    b_gnd_into_dp,
+    b_hit_ground,
+    b_hit_fly,
+    b_out_fly,
+    b_out_ground,
+    b_out_line_drive,
+    b_out_popup,
+    b_swinging_strike,
+    fast_swing_rate,
+    sweet_spot_percent,
+    barrel_batted_rate,
+    hard_hit_percent,
+    avg_best_speed,
+    avg_hyper_speed,
+    whiff_percent,
+    swing_percent
+  ) %>%
+  rename(
+    nom_joueur = 'last_name, first_name',
+    presences_au_baton = pa,
+    pourcent_retraits_baton = k_percent,
+    pourcent_buts_sur_balles = bb_percent,
+    OPS = on_base_plus_slg,
+    double_jeu = b_gnd_into_dp,
+    coups_sur_sol = b_hit_ground,
+    coups_en_fleche = b_hit_fly,
+    retraits_en_fleche = b_out_fly,
+    retraits_au_sol = b_out_ground,
+    retraits_ligne = b_out_line_drive,
+    retraits_popup = b_out_popup,
+    retraits_elan_manque = b_swinging_strike,
+    taux_swings_rapides = fast_swing_rate,
+    pourcent_sweet_spot = sweet_spot_percent,
+    taux_frappe_puissante = barrel_batted_rate,
+    pourcent_frappe_forte = hard_hit_percent,
+    vitesse_moy_frappe = avg_best_speed,
+    vitesse_moy_frappe_puissante = avg_hyper_speed,
+    pourcent_elans_manques = whiff_percent,
+    pourcent_elans_total = swing_percent
+  )
 ```
 
 
@@ -41,158 +96,68 @@ class: center, middle
 
 ## Un énoncé de l'objectif général / de la question de recherche
 
+Ce projet vise à concevoir un tableau de bord interactif permettant d’explorer les statistiques avancées des joueurs de la MLB.  
+L’objectif est de faciliter l’analyse des performances individuelles à travers des visualisations claires, des filtres dynamiques et des mises en évidence des meilleures et des moins bonnes performances.
+
+Le tableau de bord est divisé en trois onglets, chacun développé par un membre de l’équipe, afin de couvrir différents aspects du jeu et des données disponibles.
+
 ---
 
 class: inverse, center, middle
 
-# Titre de section
+---
+
+# Onglet 1 : Vue générale
+
+![Onglet 1](img/image1_onglet1.png)
 
 ---
 
-# Hello World
+# Onglet 1 : Vue générale
 
-- Cliquez sur le bouton "Knit" pour compiler votre présentation
-
-- Assurez-vous de valider et de pousser tous les fichiers résultants vers votre référentiel GitHub
+![Onglet 1](img/image2_onglet1.png)
 
 ---
 
-class: inverse, middle, center
+# Onglet 1 : Vue générale
 
-# Utiliser xaringan
+![Onglet 1](img/image3_onglet1.png)
+---
+
+# Onglet 1 : Vue générale
+
+
+**Points clés :**
+- Point 1 à retenir
+- Point 2 à retenir
+- Point 3 à retenir
 
 ---
 
-# xaringan
+# Onglet 2 : Analyse détaillée
 
-- La présentation est créée à l'aide du package `xaringan`
+![Onglet 2](chemin/vers/onglet2.png)
 
-- Utilisez `---` pour séparer les diapositives et `--` pour les versions incrémentielles
-
---
-
-- Comme ça
-
----
-
-# Dispositions
-
-Vous pouvez utiliser du texte brut
-
-- ou des listes
-
-.pull-left[
-ou texte sur deux colonnes $^*$
-]
-.pull-right[
-- Comme
-- ca
-]
-
-.footnote[
-[*] Et ajouter des notes de bas de page
-]
----
-
-# Code
-
-```{r boring-regression}
-# une régression ennuyeuse
-model <- lm(dist ~ speed, data = cars)
-model
-```
+**Points clés :**
+- Point 1 à retenir
+- Point 2 à retenir
+- Point 3 à retenir
 
 ---
 
-# Plots
+# Onglet 3 : Résultats finaux
 
-```{r recode-species, echo = FALSE}
-# Dans ce chunk, je fais un tas d'analyses que je ne veux pas présenter
-# dans mes diapositives. Mais j'ai besoin du jeu de données résultant pour un tracé que je veux présenter.
-iris_modified <- iris %>%
-  mutate(Species = fct_other(Species, keep = "setosa"))
-```
+![Onglet 3](chemin/vers/onglet3.png)
 
-```{r plot-iris, echo = FALSE}
-# Code caché avec echo = FALSE
-# Utilise l'ensemble de données d'iris modifié du bloc précédent
-# Jouez avec la hauteur et la largeur jusqu'à ce que vous soyez satisfait du look
-ggplot(data = iris_modified, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
-  geom_point() + 
-  theme_minimal() # theme options: https://ggplot2.tidyverse.org/reference/ggtheme.html
-```
+**Points clés :**
+- Point 1 à retenir
+- Point 2 à retenir
+- Point 3 à retenir
 
 ---
 
-## Plot et texte
+# Conclusion
 
-.pull-left[
-- Du texte
-- ici
-]
-.pull-right[
-```{r warning=FALSE, out.width="100%", fig.width=4, echo=FALSE}
-# voyez comment j'ai changé out.width et fig.width par défaut
-# pour agrandir la figure
-ggplot(penguins, aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot() +
-  theme_minimal()
-```
-]
-
----
-
-# Les tables
-
-Si vous souhaitez générer un tableau, assurez-vous qu'il est au format HTML (au lieu de Markdown ou d'autres formats), par exemple,
-
-```{r iris-table, echo = FALSE}
-kable(head(iris), format = "html")
-```
-
----
-
-# Images
-
-```{r castle, echo = FALSE, out.width = "60%", fig.align = "center", fig.cap = "Image credit: Photo by Jörg Angeli on Unsplash."}
-include_graphics("https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
-```
-
-Ou vous pouvez également inclure une image pleine page. Voir la diapositive suivante.
-
----
-
-background-image: url(https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)
-
----
-
-# Expressions mathématiques
-
-Vous pouvez écrire des expressions mathématiques LaTeX à l'intérieur d'une paire de signes dollar, par ex. &#36;\alpha+\beta$ rend $\alpha+\beta$. Vous pouvez utiliser le style d'affichage avec des signes dollar doubles :
-
-```
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
-
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-
-Limites:
-
-1. Le code source d'une expression mathématique LaTeX doit être sur une seule ligne, à moins qu'il ne soit à l'intérieur d'une paire de signes dollar doubles, auquel cas le `$$` de départ doit apparaître au tout début d'une ligne, suivi immédiatement d'un caractère autre qu'un espace et la terminaison `$$` doit être à la fin d'une ligne, précédée d'un caractère autre qu'un espace ;
-
-1. Il ne doit pas y avoir d'espaces après le `$` d'ouverture ou avant le `$` de fermeture.
-
-1. Les mathématiques ne fonctionnent pas sur la diapositive de titre (voir [#61](https://github.com/yihui/xaringan/issues/61) pour une solution de contournement).
-
----
-
-# Envie d'aventure ?
-
-- Vous voulez en savoir plus sur `xaringan` ? Voir https://slides.yihui.name/xaringan/#1.
-
-- Vous êtes invités à utiliser le style par défaut des diapositives. En fait, c'est ce que j'attends de la majorité d'entre vous. Vous vous différencierez par le contenu de votre présentation.
-
-- Mais certains d'entre vous voudront peut-être jouer avec le style des diapositives. La librairie
-`xaringanthemer` fournit des solutions pour cela : https://pkg.garrickadenbuie.com/xaringanthemer.
-
-- Et si vous voulez plus de cloches et de sifflets, il y a aussi `xaringanExtra` : https://pkg.garrickadenbuie.com/xaringanExtra.
+- Dashboard simple et interactif
+- Permet de visualiser rapidement les tendances
+- Adapté pour la prise de décision

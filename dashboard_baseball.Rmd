@@ -14,6 +14,8 @@ library(DT)
 library(dplyr)
 library(ggplot2)
 library(plotly)
+library(ggimage)
+
 stats <- read.csv("data/stats_joueurs.csv", header=TRUE)
 stats <- stats %>%
   select(
@@ -127,8 +129,8 @@ datatable(
 
 
 # Onglet2
-=======
-# Onglet2 
+
+
 >>>>>>> c2b25a412ac0d1b6a8d396ea037b89b655d0f2ff
 
 ## titre
@@ -175,29 +177,103 @@ renderPlotly({
 
 ```
 
-#Équipe
+
+#Onglet 3
+
+##test
 
 
 ```{r}
+
 #Ajout de l'équipe pour certains joueurs
-library(readr)
-library(dplyr)
-library(tidyverse)
+
+
 Dodgers <- read_csv("data/Dodgers.csv")
 Red_Soxs <- read_csv("data/Red Soxs.csv")
 Cubs <- read_csv("data/Cubs.csv")
 Yankees <- read_csv("data/Yankees.csv")
 
-stats <- stats %>%
+
+stats_1<-stats
+stats_1 <- stats_1 %>%
   mutate(equipe = case_when(
-    nom_joueur %in% Yankees ~ "Yankees",
-    nom_joueur %in% Cubs ~ "Cubs",
-    nom_joueur %in% Dodgers ~ "Dodgers",
-    nom_joueur %in% Red_Soxs ~ "Red_Soxs",
+    nom_joueur %in% Yankees$player_name ~ "Yankees",
+    nom_joueur %in% Cubs$player_name ~ "Cubs",
+    nom_joueur %in% Dodgers$player_name ~ "Dodgers",
+    nom_joueur %in% Red_Soxs$player_name ~ "Red_Soxs",
     TRUE ~ NA_character_
   ))
 
+# Regrouper par équipe et calculer les moyennes
 
+
+
+stats_equipes <- stats_1 %>%
+  group_by(equipe) %>%
+  summarise(
+    presences_totales = sum(presences_au_baton, na.rm = TRUE),
+    double_jeu_total = sum(double_jeu, na.rm = TRUE),
+    OPS_moyen = mean(OPS, na.rm = TRUE),
+    pourcent_retraits_baton_moyen = mean(pourcent_retraits_baton, na.rm = TRUE),
+    pourcent_buts_sur_balles_moyen = mean(pourcent_buts_sur_balles, na.rm = TRUE),
+    taux_frappe_puissante_moyen = mean(taux_frappe_puissante, na.rm = TRUE),
+    pourcent_frappe_forte_moyen = mean(pourcent_frappe_forte, na.rm = TRUE),
+    pourcent_sweet_spot_moyen = mean(pourcent_sweet_spot, na.rm = TRUE),
+    vitesse_moy_frappe_moyenne = mean(vitesse_moy_frappe, na.rm = TRUE),
+    pourcent_elans_manques_moyen = mean(pourcent_elans_manques, na.rm = TRUE),
+    pourcent_elans_total_moyen = mean(pourcent_elans_total, na.rm = TRUE)
+  ) %>%
+  arrange(desc(OPS_moyen))
+
+#Ajout des logos
+
+logos_equipes <- tibble::tibble(
+  equipe = c("Yankees", "Cubs", "Red_Soxs", "Dodgers"),
+  logo = c(
+    "extra/ChatGPT Image 8 oct. 2025, 11_57_03.png",  # Yankees
+    "extra/ChatGPT Image 8 oct. 2025, 12_15_07.png",  # Cubs
+    "extra/ChatGPT Image 8 oct. 2025, 12_20_09.png",  # Dodgers
+    "extra/ChatGPT Image 8 oct. 2025, 12_25_51.png"   # Red Soxs
+  )
+)
+
+stats_equipes <- stats_1 %>%
+  group_by(equipe) %>%
+  summarise(
+    presences_totales = sum(presences_au_baton, na.rm = TRUE),
+    OPS_moyen = mean(OPS, na.rm = TRUE),
+    pourcent_buts_sur_balles_moyen = mean(pourcent_buts_sur_balles, na.rm = TRUE),
+    pourcent_retraits_baton_moyen = mean(pourcent_retraits_baton, na.rm = TRUE),
+    taux_frappe_puissante_moyen = mean(taux_frappe_puissante, na.rm = TRUE),
+    pourcent_frappe_forte_moyen = mean(pourcent_frappe_forte, na.rm = TRUE),
+    vitesse_moy_frappe_moyenne = mean(vitesse_moy_frappe, na.rm = TRUE)
+  ) %>%
+  left_join(logos_equipes, by = "equipe")
+
+# Générer les graphiques
+
+
+# Menu pour choisir la statistique
+
+selectInput("stat_sel", "Choisissez une statistique :",
+            choices = c(
+              "OPS moyen" = "OPS_moyen",
+              "Taux de frappe puissante" = "taux_frappe_puissante_moyen",
+              "Pourcentage de frappe forte" = "pourcent_frappe_forte_moyen",
+              "Vitesse moyenne de frappe" = "vitesse_moy_frappe_moyenne"
+            ),
+            selected = "OPS_moyen")
+
+# Graphique dynamique
+
+renderPlot({
+  stat_var <- input$stat_sel
+  ggplot(stats_equipes, aes_string(x = "reorder(equipe, desc(" %+% stat_var %+% "))", y = stat_var)) +
+    geom_col(fill = "steelblue") +
+    coord_flip() +
+    labs(title = paste("Statistique :", stat_var), x = "", y = "") +
+    theme_minimal()
+})
 
 
 ```
