@@ -135,9 +135,37 @@ datatable(
 ```{r, echo=FALSE}
 
 recherche<- fluidPage(
-  selectizeInput("Joueur", "Sélectionne un ou plusieurs joueurs:", choices = unique(stats$nom_joueur), multiple=TRUE),
-  dataTableOutput("table"),   
-  plotlyOutput("graph")       
+  fluidRow(
+    column(4,
+      selectizeInput(
+        "Joueur", "Sélectionne un ou plusieurs joueurs :",
+        choices =sort( unique(stats$nom_joueur)),
+        multiple = TRUE
+      )
+    ),
+    column(4,
+      selectInput(
+        "xvar", "Choisir l’axe X :", 
+        choices = names(stats), 
+        selected = "retraits_au_sol"
+      )
+    ),
+    column(4,
+      selectInput(
+        "yvar", "Choisir l’axe Y :", 
+        choices = names(stats), 
+        selected = "retraits_ligne"
+      )
+    )
+  ),
+  
+  
+ fluidRow(
+  column(12, dataTableOutput("table"))
+),
+fluidRow(
+  column(12, plotlyOutput("graph"))
+)
 )
 
 dehors <- function(input, output) {
@@ -154,12 +182,12 @@ output$table <- renderDataTable({
 
 output$graph <- renderPlotly({
   stats_graph <- subset(stats, nom_joueur %in% input$Joueur)
-  
+  req(input$Joueur, input$xvar, input$yvar)
   ggplotly(
-    ggplot(stats_graph, aes(
-      x= retraits_au_sol,
-      y= retraits_ligne,
-      color= nom_joueur)
+    ggplot(stats_graph, aes_string(
+      x= input$xvar,
+      y= input$yvar,
+      color= "nom_joueur")
             )
     +
     
