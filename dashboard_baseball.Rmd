@@ -102,4 +102,32 @@ renderTable({subset(
 
 ```
 
-# Onglet3
+#Équipe
+
+
+```{r}
+#Ajout de l'équipe pour certains joueurs
+library(readr)
+library(dplyr)
+library(tidyverse)
+Dodgers <- read_csv("data/Dodgers.csv")
+Red_Soxs <- read_csv("data/Red Soxs.csv")
+Cubs <- read_csv("data/Cubs.csv")
+Yankees <- read_csv("data/Yankees.csv")
+
+stats <- stats %>%
+  mutate(equipe = case_when(
+    nom_joueur %in% Yankees ~ "Yankees",
+    nom_joueur %in% Cubs ~ "Cubs",
+    nom_joueur %in% Dodgers ~ "Dodgers",
+    nom_joueur %in% Red_Soxs ~ "Red_Soxs",
+    TRUE ~ NA_character_
+  ))
+
+
+
+
+```
+
+
+
