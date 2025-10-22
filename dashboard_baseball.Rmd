@@ -12,6 +12,8 @@ library(flexdashboard)
 library(shiny)
 library(DT)
 library(dplyr)
+library(ggplot2)
+library(plotly)
 stats <- read.csv("data/stats_joueurs.csv", header=TRUE)
 stats <- stats %>%
   select(
@@ -100,7 +102,7 @@ datatable(
 ## titre
 
 ```{r, echo=FALSE}
-selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats$last_name..first_name)), multiple=TRUE)
+selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats$nom_joueur)), multiple=TRUE)
 
 
 renderDataTable({
