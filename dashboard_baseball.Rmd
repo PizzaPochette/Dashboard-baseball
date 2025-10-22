@@ -3,10 +3,7 @@ title: "Dashboard-baseball"
 output: flexdashboard::flex_dashboard
 runtime: shiny
 date: "2025-10-22"
-
 ---
-
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
