@@ -68,20 +68,23 @@ stats <- stats %>%
 
 ```{r dashboard_MLB, echo=FALSE}
 
-library(scales)
 
-dt <- datatable(
-  stats,
-  options = list(
-    pageLength = 15,
-    scrollX = TRUE,
-    autoWidth = TRUE,
-    searchHighlight = TRUE
-  ),
-  filter = "top",
-  rownames = FALSE,
-  caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
+datatable(
+stats,
+extensions = 'Buttons',
+options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel'),
+pageLength = 15,
+scrollX = TRUE,
+autoWidth = TRUE,
+searchHighlight = TRUE
+),
+filter = "top",
+rownames = FALSE,
+caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
 )
+
 
 ```
 
