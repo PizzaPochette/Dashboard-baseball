@@ -66,28 +66,22 @@ stats <- stats %>%
 
 ## Résumé général
 
-```{r}
-install.packages("DT")
-library(DT)
+```{r dashboard_MLB, echo=FALSE}
 
+library(scales)
 
-datatable(
-stats,
-extensions = 'Buttons',
-options = list(
-dom = 'Bfrtip',
-buttons = c('copy', 'csv', 'excel'),
-pageLength = 15,
-scrollX = TRUE,
-autoWidth = TRUE,
-searchHighlight = TRUE
-),
-filter = "top",
-rownames = FALSE,
-caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
+dt <- datatable(
+  stats,
+  options = list(
+    pageLength = 15,
+    scrollX = TRUE,
+    autoWidth = TRUE,
+    searchHighlight = TRUE
+  ),
+  filter = "top",
+  rownames = FALSE,
+  caption = "Statistiques des frappeurs MLB (Saison 2024–2025)"
 )
-
-
 
 ```
 
