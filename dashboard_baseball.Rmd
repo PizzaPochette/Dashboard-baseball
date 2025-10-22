@@ -3,10 +3,7 @@ title: "Dashboard-baseball"
 output: flexdashboard::flex_dashboard
 runtime: shiny
 date: "2025-10-22"
-
 ---
-
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -28,18 +25,47 @@ stats <- read.csv("data/stats_joueurs.csv", header=TRUE)
 summary(cars)
 ```
 
-# Onglet2
+# Onglet2 
 
 ## titre
 
 ```{r, echo=FALSE}
-selectInput("Joueur", "Selectionne un joueur:", choices= sort(unique(stats$last_name..first_name)))
+selectizeInput("Joueur", "Selectionne deux joueurs:", choices= sort(unique(stats$last_name..first_name)), multiple=TRUE)
 
 
-renderTable({subset(
-    stats,
-    last_name..first_name == input$Joueur
+renderDataTable({
+  datatable(
+  subset(stats, last_name..first_name %in% input$Joueur),
+  filter ="top",
+  options = list(scrollX=TRUE, autoWidth = TRUE, dom='Brtip', buttons = c('colvis'), 
+    columnDefs = list(list(visible = TRUE, targets = 0:6),list(visible = FALSE, targets = 7:22)) ),
+  extensions = "Buttons"
+  
   )})
+
+
+renderPlotly({
+  stats_graph <- subset(stats, last_name..first_name %in% input$Joueur)
+  
+  ggplotly(
+    ggplot(stats_graph, aes(
+      x= fast_swing_rate,
+      y= hard_hit_percent,
+      color= last_name..first_name)
+            )
+    +
+    
+      geom_line(linewidth=1) + geom_point(size=3) 
+    +
+      labs(title="", x="", y="",color = "Joueur")
+    +
+      theme_minimal()
+      
+  )
+  
+})
+
+
 
 
 
